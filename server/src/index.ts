@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const PORT = process.env.PORT
+const PORT = process.env.SERVER_PORT;
 
 const app: Express = express()
 
@@ -12,9 +12,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", (req: Request, res: Response) => {
-    res.send("TS App is Running")
+    return res.json({ message: "hello world" });
 })
 
 app.listen(PORT, () => {
-    console.log(`server is running on PORT ${PORT}`)
+    console.log(`[server] running on http://localhost:${PORT}`)
 })
