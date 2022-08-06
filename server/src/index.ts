@@ -1,5 +1,5 @@
 import express, {Express, Request, Response} from "express";
-import mongoose, {connect, Connection} from 'mongoose';
+import {connect} from 'mongoose';
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import {User} from "./model/user";

@@ -30,5 +30,20 @@ services:
     ports:
       - "27017:27017"
 
+  web:
+    container_name: web
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    volumes:
+      - ./web/src:/app/src
+      - ./web/node_modules:/app/node_modules
+    ports:
+      - "3001:3001"
+    restart: always
+    env_file:
+      - ./.env
+
 volumes:
   data:
+    name: data
