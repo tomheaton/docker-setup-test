@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 connect(
-    "mongodb://mongodb:27017/test",
+    "mongodb://mongodb:27017/",
     {},
 ).then(async () => {
     console.log("[server] database connected")
