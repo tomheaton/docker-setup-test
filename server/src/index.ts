@@ -7,6 +7,8 @@ import {User} from "./model/user";
 dotenv.config();
 
 const PORT = process.env.SERVER_PORT;
+const USERNAME = process.env.MONGO_INITDB_ROOT_USERNAME;
+const PASSWORD = process.env.MONGO_INITDB_ROOT_PASSWORD;
 
 const app: Express = express()
 
@@ -14,7 +16,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 connect(
-    "mongodb://mongodb:27017/",
+    `mongodb://${USERNAME}:${PASSWORD}@mongodb:27017/`,
     {},
 ).then(async () => {
     console.log("[server] database connected")
@@ -29,11 +31,11 @@ connect(
     console.log(`[server] error ${error}`)
 });
 
-const db: Connection = mongoose.connection;
+/*const db: Connection = mongoose.connection;
 db.on("error", console.error.bind(console, "CONNECTION ERROR"));
 db.once("open", () => {
     console.log("connected to database")
-})
+})*/
 
 app.get("/", (req: Request, res: Response) => {
     return res.json({ message: "hello world" });
@@ -55,7 +57,7 @@ app.get("/generate", async (req: Request, res: Response) => {
 })
 
 app.get("/users", async (req: Request, res: Response) => {
-
+    console.log("[server] GET /users called")
     const users = await User.find();
 
     if (!users) {
