@@ -2,6 +2,7 @@ import express, {Express, Request, Response} from "express";
 import {connect} from 'mongoose';
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
+import cors from "cors";
 import {User} from "./model/user";
 
 dotenv.config();
@@ -12,6 +13,7 @@ const PASSWORD = process.env.MONGO_INITDB_ROOT_PASSWORD;
 
 const app: Express = express()
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
