@@ -63,11 +63,14 @@ const App: React.FC<Props> = () => {
                 </form>
                 <br/>
                 <div>
+                    <h3>
+                        users
+                    </h3>
                     {error && (<p>Error!</p>)}
                     {!data && !error && (<p>Loading...</p>)}
-                    {data?.map((user: any, index: number) => {
+                    {data?.data?.map((user: { username: string, name: string }, index: number) => {
                         return (
-                            <p>
+                            <p key={index}>
                                 {user.username}: {user.name}
                             </p>
                         );
