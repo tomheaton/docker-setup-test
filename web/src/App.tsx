@@ -1,5 +1,7 @@
 import React, {SyntheticEvent, useState} from 'react';
 import './App.css';
+import {useUsers} from "./hooks";
+import toast from "react-hot-toast";
 
 type Props = {};
 
@@ -7,8 +9,19 @@ const App: React.FC<Props> = () => {
     const [username, setUsername] = useState<string>("");
     const [name, setName] = useState<string>("");
 
-    const handleSubmit = (e: SyntheticEvent) => {
+    const {data, error, mutate} = useUsers();
+
+    const handleSubmit = async (e: SyntheticEvent) => {
         e.preventDefault();
+        toast.success("user added");
+        await mutate();
+
+        try {
+
+        } catch (error) {
+            toast.error(`Error: ${error}`)
+        }
+
         console.log("");
     }
 
@@ -48,6 +61,18 @@ const App: React.FC<Props> = () => {
                         Add User
                     </button>
                 </form>
+                <br/>
+                <div>
+                    {error && (<p>Error!</p>)}
+                    {!data && !error && (<p>Loading...</p>)}
+                    {data?.map((user: any, index: number) => {
+                        return (
+                            <p>
+                                {user.username}: {user.name}
+                            </p>
+                        );
+                    })}
+                </div>
             </header>
         </div>
     );

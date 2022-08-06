@@ -42,7 +42,13 @@ app.get("/", (req: Request, res: Response) => {
 })
 
 app.get("/test", (req: Request, res: Response) => {
-    return res.json({ message: "test" });
+    return res.json({
+        message: "test",
+        data: [
+            {username: "tomheaton", name: "Tom Heaton"},
+            {username: "johnsmith", name: "John Smith"}
+        ]
+    });
 })
 
 app.get("/generate", async (req: Request, res: Response) => {
