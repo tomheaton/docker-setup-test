@@ -11,5 +11,24 @@ services:
       - ./server/node_modules:/app/node_modules
     ports:
       - "3001:3001"
+    restart: always
     env_file:
       - ./.env
+    links:
+      - mongodb
+    depends_on:
+      - mongodb
+
+  mongodb:
+    container_name: mongodb
+    image: mongo:latest
+    env_file:
+      - ./.env
+    volumes:
+      - ./data:/data/db
+    restart: always
+    ports:
+      - "27017:27017"
+
+volumes:
+  data:
